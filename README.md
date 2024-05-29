@@ -1,1 +1,4 @@
-# virtbc
+# Virtual Bash Command // virtbc
+This is designed to bypass venv global restrictions and allow users to run commands
+Such as pip, mov-cli without being harassed by errors stating you cannot do thing outside of a venv
+Don't get me wrong this still uses a venv however it's a cleaner safer method then removing the safety features.
