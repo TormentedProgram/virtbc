@@ -1,0 +1,16 @@
+ 
+#!/bin/bash
+
+# Get the directory of the script
+script_dir="$(cd "$(dirname "$0")" && pwd)"
+
+# Construct the filename of the Python script
+python_file="$script_dir/$(basename "$0").py"
+
+# Check if the Python file exists
+if [ ! -f "$python_file" ]; then
+    echo "Missing file '$python_file'"
+    exit 1
+fi
+
+python3 "$python_file" "$@"
