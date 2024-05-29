@@ -45,7 +45,7 @@ def add_function_to_bashrc(function_name):
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
-        print("Usage: virtc function_name")
+        print("Usage: virtbc function_name")
     else:
         function_name = sys.argv[1]
         add_function_to_bashrc(function_name)
