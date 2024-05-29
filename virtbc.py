@@ -17,10 +17,10 @@ def add_function_to_bashrc(function_name):
     bashrc_path = find_bashrc()
 
     if bashrc_path:
-        
+        venv_path = os.path.join(os.path.expanduser("~"), ".venvs", "globalvenv", "bin", "activate")
         function_code = """
 {}() {{
-    source /home/tormented/.venvs/globalvenv/bin/activate
+    source {venv_path}
     local function_name="${{FUNCNAME[0]}}"
     local command_name="$(which "$function_name")"
     if [ -z "$command_name" ]; then
