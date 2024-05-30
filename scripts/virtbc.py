@@ -72,7 +72,7 @@ source {currentMod}
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
-        print("Usage: virtbc function_name")
+        print("Usage: virtbc (command)")
     else:
         function_name = sys.argv[1]
         add_manager_to_bashrc()
