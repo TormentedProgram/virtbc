@@ -32,16 +32,14 @@ fi
 # Find the .bashrc file in the home directory
 BASHRC_FILE="$HOME/.bashrc"
 
-# Check if the .bashrc file exists
 if [ -f "$BASHRC_FILE" ]; then
     if grep -q '^#virtbc implementation' "$BASHRC_FILE"; then
-        sed -i '/^#virtbc implementation/{N;d;}' "$BASHRC_FILE" && echo "Removed virtbc implementation from $BASHRC_FILE" || echo "Failed to remove virtbc implementation from $BASHRC_FILE"
+        sed -i '/^$/,$ { /^$/ { N; /\n#virtbc implementation.*$/ { N; d } } }' "$BASHRC_FILE" && echo "Removed virtbc implementation from $BASHRC_FILE" || echo "Failed to remove virtbc implementation from $BASHRC_FILE"
     else
         echo "No virtbc implementation found in $BASHRC_FILE"
     fi
 else
     echo "File $BASHRC_FILE not found"
 fi
-
 
 echo "Successfully uninstalled!"
