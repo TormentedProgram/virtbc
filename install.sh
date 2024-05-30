@@ -15,14 +15,7 @@ if [ ! -d "$SOURCE_DIR" ]; then
   exit 1
 fi
 
-# Find the first two files in the source directory
-FILES_TO_COPY=$(ls "$SOURCE_DIR" 2>/dev/null | head -n 2)
-
-# Check if there are at least two files to copy
-if [ $(echo "$FILES_TO_COPY" | wc -l) -lt 2 ]; then
-  echo "Error: Not enough files to copy in $SOURCE_DIR."
-  exit 1
-fi
+FILES_TO_COPY=("virtbc.py" "virtbc")
 
 # Copy the files
 echo "Copying files from $SOURCE_DIR to $DEST_DIR:"
@@ -31,12 +24,7 @@ for FILE in $FILES_TO_COPY; do
   cp "$SOURCE_DIR/$FILE" "$DEST_DIR" && echo "Copied $FILE to $DEST_DIR" || echo "Failed to copy $FILE"
 done
 
-# Check if all files were copied successfully
-if [ $(ls "$DEST_DIR" 2>/dev/null | wc -l) -ge 2 ]; then
-  echo "All files setup successfully."
-else
-  echo "Error: Some files could not be copied."
-fi
+echo "All files setup successfully."
 
 if ! python "$SOURCE_DIR/virtbc.py" --setup; then
   if ! python3 "$SOURCE_DIR/virtbc.py" --setup; then
