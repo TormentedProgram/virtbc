@@ -12,7 +12,7 @@ modFolder = os.path.join(os.path.expanduser("~"),'.config','virtbc')
 modManager = os.path.join(modFolder, "virtbc_commands")
 
 def setup_bashrc_mod():
-    venv_path = os.path.join(os.path.expanduser("~"), '.venvs', "globalvenv")
+    venv_path = os.path.join(os.path.expanduser("~"), '.venvs', "virtbc-venv")
     needs_setup = False
 
     if not os.path.exists(venv_path): # I had a or statement but both were printing and I'm lazy
@@ -104,7 +104,7 @@ def add_function(function_name):
         except Exception as e:
             print("Error:", e)
 
-if __name__ == "__main__":
+def main():
     parser = argparse.ArgumentParser(description="Allows commands to run inside a VirtualENV without requiring the VENV path.")
     parser.add_argument("command", nargs='?', const='arg_was_not_given', help="Command to add only into VirtualENV.")
     parser.add_argument("--setup", "-s", action="store_true", help="Creates and sets up directories")
@@ -122,3 +122,6 @@ if __name__ == "__main__":
         add_function(function_name)
     else:
         parser.print_help()
+
+if __name__ == "__main__":
+    main()
