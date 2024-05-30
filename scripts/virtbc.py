@@ -40,6 +40,19 @@ def find_bashrc():
             return path
     return None
 
+def remove_command(command):
+    currentMod = os.path.join(modFolder, command)
+    if os.path.exists(currentMod):
+        os.remove(currentMod)
+        with open(modManager, 'r') as file:
+            lines = file.readlines()
+            lines = [line for line in lines if command not in line]
+            with open(modManager, 'w') as file:
+                file.writelines(lines)
+        print(f'Command: "{command}"" removed from VirtualENV successfully!')
+    else:
+        print("Command not found in database.")
+
 def add_manager_to_bashrc():  
     bashrc_path = find_bashrc()
 
@@ -95,11 +108,14 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Allows commands to run inside a VirtualENV without requiring the VENV path.")
     parser.add_argument("command", nargs='?', const='arg_was_not_given', help="Command to add only into VirtualENV.")
     parser.add_argument("--setup", "-s", action="store_true", help="Creates and sets up directories")
+    parser.add_argument("--remove", "-r", action="store_true", help="Removes Command from VirtualENV.")
     args = parser.parse_args()
 
     if args.setup:
         setup_bashrc_mod()
         add_manager_to_bashrc()
+    elif args.remove and args.command:
+        remove_command(args.command)
     elif args.command:
         function_name = args.command
         add_manager_to_bashrc()
