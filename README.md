@@ -28,7 +28,7 @@ cd ~
 mkdir virtbc-main
 curl -L https://github.com/TormentedProgram/virtbc/archive/master.tar.gz | tar xz --wildcards '*uninstall.sh' -C virtbc-main
 cd virtbc-main
-pip remove virtbc --break-system-packages
+pip uninstall virtbc -y --break-system-packages
 ./uninstall.sh
 rm -rf ~/virtbc-main
 cd ~
