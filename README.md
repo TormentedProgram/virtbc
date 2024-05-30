@@ -13,11 +13,6 @@ virtbc --setup
 cd ~
 ~~~
 
-# Uninstallation Method 1
-~~~
-pip remove virtbc --break-system-packages
-~~~
-
 # Installation Method 2
 ~~~
 cd ~
@@ -27,12 +22,13 @@ cd virtbc-main
 cd ~
 ~~~
 
-# Uninstallation Method 2
+# Uninstallation
 ~~~
 cd ~
 mkdir virtbc-main
 curl -L https://github.com/TormentedProgram/virtbc/archive/master.tar.gz | tar xz --wildcards '*uninstall.sh' -C virtbc-main
 cd virtbc-main
+pip remove virtbc --break-system-packages
 ./uninstall.sh
 rm -rf ~/virtbc-main
 cd ~
