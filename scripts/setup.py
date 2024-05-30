@@ -1,4 +1,4 @@
-from setuptools import setup, find_packages
+from setuptools import setup
 import os
 
 def find_files(directory):
@@ -11,7 +11,6 @@ def find_files(directory):
 setup(
     name='virtbc',
     version='0.1.1',
-    packages=find_packages(),
     entry_points={
         'console_scripts': [
             'virtbc = virtbc:main',
