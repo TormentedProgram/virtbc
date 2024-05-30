@@ -114,8 +114,8 @@ def main():
     parser.add_argument("--venv", "-v", default="virtbc-venv", help="Select VirtualENV to use.")
     args = parser.parse_args()
 
+    global usingVENV
     if usingVENV != args.venv:
-        global usingVENV
         usingVENV = args.venv
         setup_bashrc_mod()
         add_manager_to_bashrc()
