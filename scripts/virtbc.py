@@ -26,9 +26,13 @@ def add_manager_to_bashrc():
     setup_bashrc_mod()
     bashrc_path = find_bashrc()
 
+    with open(bashrc_path, 'r') as file:
+        bashrc_file = file.read()
+        if "virtbc" in bashrc_file:
+            return
+
     if bashrc_path:
-        function_code = f'''
-#virtbc implementation
+        function_code = f'''#virtbc implementation
 source {modManager}
         '''
 
