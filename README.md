@@ -16,4 +16,5 @@ cd virtbc-main
 cd ~
 cd virtbc-main
 ./uninstall.sh
+rm -rf ~/virtbc-main
 ~~~
