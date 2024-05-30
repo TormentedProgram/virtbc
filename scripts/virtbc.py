@@ -8,11 +8,13 @@ possible_paths = [
     os.path.join(os.path.expanduser("~"),'.bashrc'),
 ]
 
+usingVENV = "virtbc-venv"
+
 modFolder = os.path.join(os.path.expanduser("~"),'.config','virtbc')
 modManager = os.path.join(modFolder, "virtbc_commands")
 
 def setup_bashrc_mod():
-    venv_path = os.path.join(os.path.expanduser("~"), '.venvs', "virtbc-venv")
+    venv_path = os.path.join(os.path.expanduser("~"), '.venvs', usingVENV)
     needs_setup = False
 
     if not os.path.exists(venv_path): # I had a or statement but both were printing and I'm lazy
@@ -74,7 +76,7 @@ def add_function(function_name):
     currentMod = os.path.join(modFolder, function_name)
 
     if currentMod:
-        venv_path = os.path.join(os.path.expanduser("~"),'.venvs','virtbc-venv','bin','activate')
+        venv_path = os.path.join(os.path.expanduser("~"),'.venvs',usingVENV,'bin','activate')
         try:
             with open(currentMod, 'a') as bash_mod:
                 content = textwrap.dedent(
@@ -109,8 +111,11 @@ def main():
     parser.add_argument("command", nargs='?', const='arg_was_not_given', help="Command to add only into VirtualENV.")
     parser.add_argument("--setup", "-s", action="store_true", help="Creates and sets up directories")
     parser.add_argument("--remove", "-r", action="store_true", help="Removes Command from VirtualENV.")
+    parser.add_argument("--venv", "-v", default="virtbc-venv", help="Select VirtualENV to use.")
     args = parser.parse_args()
 
+    global usingVENV
+    usingVENV = args.venv
     if args.setup:
         setup_bashrc_mod()
         add_manager_to_bashrc()
