@@ -74,7 +74,7 @@ def add_function(function_name):
     currentMod = os.path.join(modFolder, function_name)
 
     if currentMod:
-        venv_path = os.path.join(os.path.expanduser("~"),'.venvs','globalvenv','bin','activate')
+        venv_path = os.path.join(os.path.expanduser("~"),'.venvs','virtbc-venv','bin','activate')
         try:
             with open(currentMod, 'a') as bash_mod:
                 content = textwrap.dedent(
