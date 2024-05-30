@@ -38,4 +38,8 @@ else
   echo "Error: Some files could not be copied."
 fi
 
-python3 $SOURCE_DIR/virtbc.py --setup
+if ! python "$SOURCE_DIR/virtbc.py" --setup; then
+  if ! python3 "$SOURCE_DIR/virtbc.py" --setup; then
+    echo "Setup failed.."
+  fi
+fi

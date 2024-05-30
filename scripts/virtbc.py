@@ -13,17 +13,26 @@ modManager = os.path.join(modFolder, "virtbc_commands")
 
 def setup_bashrc_mod():
     venv_path = os.path.join(os.path.expanduser("~"), '.venvs', "globalvenv")
-    if not os.path.exists(venv_path) or not os.path.exists(modFolder) or not os.path.exists(modManager):
+    needs_setup = False
+
+    if not os.path.exists(venv_path): # I had a or statement but both were printing and I'm lazy
+        needs_setup = True
+    if not os.path.exists(modFolder):
+        needs_setup = True
+    if not os.path.exists(modManager):
+        needs_setup = True
+
+    if needs_setup:
         print("Setting up files!")
+        if not os.path.exists(venv_path):
+            cmd.check_call([sys.executable, "-m", "venv", venv_path])
+        if not os.path.exists(modFolder):
+            os.makedirs(modFolder, exist_ok=True)
+        if not os.path.exists(modManager):
+            with open(modManager, 'a'):
+                pass
     else:
         print("Files do not need setup!")
-    if not os.path.exists(venv_path):
-        cmd.check_call([sys.executable, "-m", "venv", venv_path])
-    if not os.path.exists(modFolder):
-        os.makedirs(modFolder, exist_ok=True)
-    if not os.path.exists(modManager):
-        with open(modManager, 'a'):
-            pass
 
 def find_bashrc():
     for path in possible_paths:
