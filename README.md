@@ -9,6 +9,7 @@ cd ~
 curl -L https://github.com/TormentedProgram/virtbc/archive/master.tar.gz | tar xz
 cd virtbc-main/scripts
 pip install . --break-system-packages
+virtbc --setup
 cd ~
 ~~~
 
