@@ -1,5 +1,6 @@
 import os
 import sys
+import argparse
 
 modFolder = os.path.join(os.path.expanduser("~"),'.config','virtbc')
 modManager = os.path.join(modFolder, "virtbc_commands")
@@ -71,9 +72,17 @@ source {currentMod}
             print("Error:", e)
 
 if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        print("Usage: virtbc (command)")
-    else:
-        function_name = sys.argv[1]
+    parser = argparse.ArgumentParser(description="Allows commands to run inside a VirtualENV without requiring the VENV path.")
+    parser.add_argument("command", nargs='?', const='arg_was_not_given', help="Command to add only into VirtualENV.")
+    parser.add_argument("--setup", "-s", action="store_true", help="Creates and sets up directories")
+    args = parser.parse_args()
+
+    if args.setup:
+        add_manager_to_bashrc()
+        print("Setting up file structure!")
+    elif args.command:
+        function_name = args.command
         add_manager_to_bashrc()
         add_function(function_name)
+    else:
+        parser.print_help()

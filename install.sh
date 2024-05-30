@@ -37,3 +37,5 @@ if [ $(ls "$DEST_DIR" 2>/dev/null | wc -l) -ge 2 ]; then
 else
   echo "Error: Some files could not be copied."
 fi
+
+python3 $SOURCE_DIR/virtbc.py --setup
