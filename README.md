@@ -9,6 +9,7 @@ cd ~
 curl -L https://github.com/TormentedProgram/virtbc/archive/master.tar.gz | tar xz
 cd virtbc-main
 ./install.sh
+cd ~
 ~~~
 
 # Uninstallation
@@ -17,4 +18,5 @@ cd ~
 cd virtbc-main
 ./uninstall.sh
 rm -rf ~/virtbc-main
+cd ~
 ~~~
