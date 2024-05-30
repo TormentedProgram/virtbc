@@ -8,7 +8,7 @@ Don't get me wrong this still uses a venv however it's a cleaner safer method th
 cd ~
 curl -L https://github.com/TormentedProgram/virtbc/archive/master.tar.gz | tar xz
 cd virtbc-main/scripts
-pip install .
+pip install . --break-system-packages
 cd ~
 ~~~
 
