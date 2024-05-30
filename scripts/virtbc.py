@@ -1,6 +1,8 @@
 import os
 import argparse
 import textwrap
+import sys
+import subprocess as cmd
 
 possible_paths = [
     os.path.join(os.path.expanduser("~"),'.bashrc'),
@@ -10,19 +12,26 @@ modFolder = os.path.join(os.path.expanduser("~"),'.config','virtbc')
 modManager = os.path.join(modFolder, "virtbc_commands")
 
 def setup_bashrc_mod():
-    os.makedirs(modFolder, exist_ok=True)
-    with open(modManager, 'a'):
-        pass
+    venv_path = os.path.join(os.path.expanduser("~"), '.venvs', "globalvenv")
+    if not os.path.exists(venv_path) or not os.path.exists(modFolder) or not os.path.exists(modManager):
+        print("Setting up files!")
+    else:
+        print("Files do not need setup!")
+    if not os.path.exists(venv_path):
+        cmd.check_call([sys.executable, "-m", "venv", venv_path])
+    if not os.path.exists(modFolder):
+        os.makedirs(modFolder, exist_ok=True)
+    if not os.path.exists(modManager):
+        with open(modManager, 'a'):
+            pass
 
 def find_bashrc():
     for path in possible_paths:
         if os.path.isfile(path):
             return path
-
     return None
 
 def add_manager_to_bashrc():  
-    setup_bashrc_mod()
     bashrc_path = find_bashrc()
 
     with open(bashrc_path, 'r') as file:
@@ -80,8 +89,8 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     if args.setup:
+        setup_bashrc_mod()
         add_manager_to_bashrc()
-        print("Setting up file structure!")
     elif args.command:
         function_name = args.command
         add_manager_to_bashrc()
