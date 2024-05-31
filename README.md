@@ -3,19 +3,18 @@ This is designed to bypass venv global restrictions and allow users to run comma
 Such as pip, mov-cli without being harassed by errors stating you cannot do thing outside of a venv
 Don't get me wrong this still uses a venv however it's a cleaner safer method then removing the safety features.
 
-# Installation Method 1
+# Recommended Installation
 ~~~
-cd ~
+cd /tmp/
 curl -L https://github.com/TormentedProgram/virtbc/archive/master.tar.gz | tar xz
-cd virtbc-main/scripts
-pip install . --break-system-packages
+pip install ./virtbc-main/scripts/. --break-system-packages
 virtbc --setup
 cd ~
 ~~~
 
-# Installation Method 2
+# Alternative Installation
 ~~~
-cd ~
+cd /tmp/
 curl -L https://github.com/TormentedProgram/virtbc/archive/master.tar.gz | tar xz
 cd virtbc-main
 ./install.sh
@@ -24,7 +23,7 @@ cd ~
 
 # Uninstallation
 ~~~
-cd ~
+cd /tmp/
 mkdir virtbc-main
 curl -L https://github.com/TormentedProgram/virtbc/archive/master.tar.gz | tar xz --wildcards '*uninstall.sh' -C virtbc-main
 cd virtbc-main
