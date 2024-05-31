@@ -146,10 +146,13 @@ def main():
         with open(modManager, 'r') as file:
             modManagerContent = file.read()
             lines = modManagerContent.split('\n')
-            for line in lines:
-                if "source" in line:
-                    line = line.replace("source ", "")
-                    print(f" - Path: {line}\n    - Command: {os.path.basename(line)}")
+            if len(lines) > 1:
+                for line in lines:
+                    if "source" in line:
+                        line = line.replace("source ", "")
+                        print(f" - Path: {line}\n    - Command: {os.path.basename(line)}")
+            else:
+                print("There is no active commands.")
     elif args.remove and args.command:
         remove_command(args.command)
     elif args.command:
