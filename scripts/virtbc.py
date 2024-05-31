@@ -51,7 +51,7 @@ def remove_command(command):
             lines = [line for line in lines if command not in line]
             with open(modManager, 'w') as file:
                 file.writelines(lines)
-        print(f'Command: "{command}"" removed from VirtualENV successfully!')
+        print(f'Command: "{command}" removed from VirtualENV successfully!')
     else:
         print("Command not found in database.")
 
@@ -76,6 +76,15 @@ def add_function(function_name):
     currentMod = os.path.join(modFolder, function_name)
 
     if currentMod:
+        if os.path.exists(currentMod):
+            with open(currentMod, 'r') as file:
+                content = file.read()
+                lines = content.split('\n')
+                for line in lines:
+                    if f"{function_name}()" in line:
+                        print(f'Command already initalized at {currentMod}\nIf you wish to remove, run "virtbc --remove {function_name}"')
+                        return
+            
         venv_path = os.path.join(os.path.expanduser("~"),'.venvs',usingVENV,'bin','activate')
         try:
             with open(currentMod, 'a') as bash_mod:
@@ -93,8 +102,17 @@ def add_function(function_name):
                 content = '\n'.join(lines[1:])
                 bash_mod.write(content)
 
-            with open(modManager, 'a') as bashrc_file: #formats good
-                bashrc_file.write(
+            if os.path.exists(modManager):
+                with open(modManager, 'r') as file:
+                    content = file.read()
+                    lines = content.split('\n')
+                    for line in lines:
+                        if f"source {currentMod}" in line:
+                            print(f'Command already initalized at {currentMod}\nIf you wish to remove, run "virtbc --remove {function_name}"')
+                            return
+
+            with open(modManager, 'a') as file: #formats good
+                file.write(
                     textwrap.dedent(f'''
                     source {currentMod}
                     '''
@@ -112,6 +130,7 @@ def main():
     parser.add_argument("--setup", "-s", action="store_true", help="Creates and sets up directories")
     parser.add_argument("--remove", "-r", action="store_true", help="Removes Command from VirtualENV.")
     parser.add_argument("--venv", "-v", default="virtbc-venv", help="Select VirtualENV to use.")
+    parser.add_argument("--list", "-l", action="store_true", help="Displays current active commands")
     args = parser.parse_args()
 
     global usingVENV
@@ -123,6 +142,14 @@ def main():
     if args.setup:
         setup_bashrc_mod()
         add_manager_to_bashrc()
+    elif args.list:
+        with open(modManager, 'r') as file:
+            modManagerContent = file.read()
+            lines = modManagerContent.split('\n')
+            for line in lines:
+                if "source" in line:
+                    line = line.replace("source ", "")
+                    print(f" - Path: {line}\n    - Command: {os.path.basename(line)}")
     elif args.remove and args.command:
         remove_command(args.command)
     elif args.command:
